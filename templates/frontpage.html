@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+  .blogpost + .blogpost {
+    margin-top: 20px;
+  }
+
+  .blogpost-title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .blogpost-body {
+    margin: 0px;
+    font-size: 17px;
+  }
+</style>
+
+<h1>blog</h1>
+
+{% for blogpost in posts %}
+  <div class="blogpost">
+    <div class="blogpost-title">{{blogpost.title}}</div>
+    <pre class="blogpost-body">{{blogpost.body}}</pre>
+  </div>
+{% endfor %}
+
+{% endblock %}
