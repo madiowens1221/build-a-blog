@@ -33,7 +33,7 @@
 
 {% for blogpost in posts %}
   <div class="blogpost">
-    <div class="blogpost-title"><a href="/">{{blogpost.key().id()}}</a></div>
+    <div class="blogpost-title"><a href="/blog/{{blogpost.key().id()}}">{{blogpost.title}}</a></div>
     <pre class="blogpost-body">{{blogpost.body}}</pre>
   </div>
 {% endfor %}
