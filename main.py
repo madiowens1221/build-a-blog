@@ -57,12 +57,15 @@ class ViewPostHandler(webapp2.RequestHandler):
         post = BlogPost.get_by_id( int(id) )
         if post:
             t = jinja_env.get_template("post.html")
-            content = t.render(sdf = title, body=body, post = post)
+            content = t.render(title = title, body=body, post = post)
             self.response.write(content)
 
         else:
-            error = "helpful message"
-            self.redirect("/blog?error=?" + error)
+            error = "this ID does not exist!"
+            error2 = "please try again :)"
+            t = jinja_env.get_template("post.html")
+            content = t.render(title = title, body=body, post = post, error = error, tinyerror = error2)
+            self.response.write(content)
 
 
 app = webapp2.WSGIApplication([

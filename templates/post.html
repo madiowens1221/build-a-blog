@@ -15,9 +15,18 @@
   margin: 0px;
   font-size: 17px;
 }
+
+.error {
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 20px;
+  color: red;
+}
 </style>
 
   <div class="blogpost-title"> {{post.title}} </div>
   <pre class="blogpost-body"> {{post.body}} </pre>
+  <div class="error"> {{error}} </div>
+  <pre class="error2"> {{tinyerror}} </pre>
 
 {% endblock %}
