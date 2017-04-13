@@ -27,15 +27,13 @@ class MainPage(webapp2.RequestHandler):
 
 
 class NewPost(webapp2.RequestHandler):
-    def get(self):
-        """what the user tyeps to us"""
-        title = self.request.get("title")
-        body = self.request.get("body")
-
+    def render_newpost(self, title="", body="", error=""):
         t = jinja_env.get_template("newpost.html")
-        content = t.render(title=title, body=body)
+        content = t.render(title=title, body=body, error=error)
         self.response.write(content)
 
+    def get(self):
+        self.render_newpost()
 
     def post(self):
         title = self.request.get("title")
@@ -43,14 +41,32 @@ class NewPost(webapp2.RequestHandler):
 
         if title and body:
             a = BlogPost(title = title, body = body)
-            a.put() #storing art object in a database
+            a.put()
 
             self.redirect("/")
         else:
             error = "we need both a title and some text!"
-            self.render_front(title, body, error)
+            self.render_newpost(title, body, error)
+
+class ViewPostHandler(webapp2.RequestHandler):
+    def get(self, id):
+
+        title = ""
+        body = ""
+
+        post = BlogPost.get_by_id( int(id) )
+        if post:
+            t = jinja_env.get_template("post.html")
+            content = t.render(sdf = title, body=body, post = post)
+            self.response.write(content)
+
+        else:
+            error = "helpful message"
+            self.redirect("/blog?error=?" + error)
+
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/newpost', NewPost)
+    ('/newpost', NewPost),
+    (webapp2.Route('/blog/<id:\d+>', ViewPostHandler))
 ], debug=True)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.blogpost-title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 20px;
+  color: lightgreen;
+}
+
+.blogpost-body {
+  margin: 0px;
+  font-size: 17px;
+}
+</style>
+
+  <div class="blogpost-title"> {{post.title}} </div>
+  <pre class="blogpost-body"> {{post.body}} </pre>
+
+{% endblock %}
