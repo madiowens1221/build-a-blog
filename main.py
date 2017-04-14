@@ -43,7 +43,10 @@ class NewPost(webapp2.RequestHandler):
             a = BlogPost(title = title, body = body)
             a.put()
 
-            self.redirect("/")
+            blog_id = str(a.key().id())
+
+            self.redirect("/blog/" + blog_id)
+
         else:
             error = "we need both a title and some text!"
             self.render_newpost(title, body, error)
